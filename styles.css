@@ -1,4 +1,284 @@
 /*
- * Estilos de la PWA de Participación Ciudadana.
- * La implementación de HT-001 se agregará con asistencia de IA.
+ * Configuración general
  */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    margin: 0;
+
+    background-color: #eef3f8;
+
+    color: #263747;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/*
+ * Contenedor principal
+ */
+
+.contenedor {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 40px 18px;
+}
+
+
+/*
+ * Tarjeta del formulario
+ */
+
+.tarjeta {
+    padding: 34px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #dce5ee;
+    border-radius: 14px;
+
+    box-shadow:
+        0 14px 38px
+        rgba(31, 64, 96, 0.10);
+}
+
+
+/*
+ * Encabezado
+ */
+
+.encabezado {
+    margin-bottom: 28px;
+}
+
+.etiqueta {
+    margin: 0 0 6px;
+
+    color: #1769aa;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+.encabezado h1 {
+    margin: 0 0 10px;
+
+    color: #123b63;
+
+    font-size: 28px;
+}
+
+.encabezado p {
+    margin-top: 0;
+
+    color: #586574;
+
+    line-height: 1.5;
+}
+
+
+/*
+ * Campos del formulario
+ */
+
+.campo {
+    margin-bottom: 22px;
+}
+
+label,
+.titulo-campo {
+    display: block;
+
+    margin: 0 0 8px;
+
+    color: #263747;
+
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #b8c5d1;
+    border-radius: 8px;
+
+    background-color: #ffffff;
+
+    color: #263747;
+
+    font: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="file"] {
+    background-color: #f8fafc;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: 3px solid
+        rgba(23, 105, 170, 0.18);
+
+    border-color: #1769aa;
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+    border-color: #b42318;
+}
+
+
+/*
+ * Textos auxiliares
+ */
+
+.texto-secundario {
+    margin: 8px 0 12px;
+
+    color: #667585;
+
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.contador {
+    margin: 6px 0 0;
+
+    color: #667585;
+
+    font-size: 13px;
+    text-align: right;
+}
+
+.mensaje-error {
+    min-height: 18px;
+
+    margin: 6px 0 0;
+
+    color: #b42318;
+
+    font-size: 14px;
+}
+
+
+/*
+ * Estados y mensajes generales
+ */
+
+.estado {
+    margin: 12px 0 0;
+
+    padding: 10px 12px;
+
+    background-color: #f2f5f8;
+
+    border-radius: 7px;
+
+    color: #46586a;
+
+    font-size: 14px;
+}
+
+.mensaje-general {
+    min-height: 24px;
+
+    margin: 0 0 16px;
+
+    font-weight: bold;
+}
+
+.mensaje-general.error {
+    color: #b42318;
+}
+
+.mensaje-general.exito {
+    color: #17623a;
+}
+
+
+/*
+ * Botones
+ */
+
+button {
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.boton-principal {
+    width: 100%;
+
+    background-color: #1769aa;
+
+    color: #ffffff;
+}
+
+.boton-secundario {
+    background-color: #e8f1f8;
+
+    color: #145889;
+}
+
+button:hover {
+    filter: brightness(0.96);
+}
+
+button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.6;
+}
+
+
+/*
+ * Diseño responsivo
+ */
+
+@media (max-width: 600px) {
+
+    .contenedor {
+        padding: 20px 12px;
+    }
+
+    .tarjeta {
+        padding: 24px 18px;
+    }
+
+    .encabezado h1 {
+        font-size: 24px;
+    }
+
+    .boton-secundario {
+        width: 100%;
+    }
+
+}

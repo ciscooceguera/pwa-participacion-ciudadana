@@ -1,24 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PWA de Participación Ciudadana</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Registro de problema urbano</title>
 
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <main>
-        <h1>PWA de Participación Ciudadana</h1>
+    <main class="contenedor">
 
-        <p>
-            Primer incremento funcional del MVP.
-        </p>
+        <section
+            class="tarjeta"
+            aria-labelledby="titulo-formulario"
+        >
+
+            <header class="encabezado">
+
+                <p class="etiqueta">
+                    Participación ciudadana
+                </p>
+
+                <h1 id="titulo-formulario">
+                    Registrar un problema urbano
+                </h1>
+
+                <p>
+                    Describe el problema y agrega una fotografía
+                    como evidencia.
+                </p>
+
+            </header>
+
+            <form id="reporte-form" novalidate>
+
+                <div class="campo">
+
+                    <label for="categoria">
+                        Categoría
+                    </label>
+
+                    <input
+                        type="text"
+                        id="categoria"
+                        name="categoria"
+                        placeholder="Ejemplo: Bache en vía pública"
+                        aria-describedby="error-categoria"
+                    >
+
+                    <p
+                        id="error-categoria"
+                        class="mensaje-error"
+                        aria-live="polite"
+                    ></p>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="descripcion">
+                        Descripción
+                    </label>
+
+                    <textarea
+                        id="descripcion"
+                        name="descripcion"
+                        rows="5"
+                        placeholder="Describe el problema urbano"
+                        aria-describedby="contador-descripcion error-descripcion"
+                    ></textarea>
+
+                    <p
+                        id="contador-descripcion"
+                        class="contador"
+                    >
+                        0 caracteres
+                    </p>
+
+                    <p
+                        id="error-descripcion"
+                        class="mensaje-error"
+                        aria-live="polite"
+                    ></p>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="evidencia">
+                        Evidencia fotográfica
+                    </label>
+
+                    <input
+                        type="file"
+                        id="evidencia"
+                        name="evidencia"
+                        accept="image/*"
+                        aria-describedby="estado-evidencia error-evidencia"
+                    >
+
+                    <p
+                        id="estado-evidencia"
+                        class="texto-secundario"
+                    >
+                        Ninguna imagen seleccionada.
+                    </p>
+
+                    <p
+                        id="error-evidencia"
+                        class="mensaje-error"
+                        aria-live="polite"
+                    ></p>
+
+                </div>
+
+                <div class="campo">
+
+                    <p class="titulo-campo">
+                        Ubicación
+                    </p>
+
+                    <p class="texto-secundario">
+                        La ubicación es opcional. Puedes registrar
+                        el reporte aunque no la compartas.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="btn-ubicacion"
+                        class="boton-secundario"
+                    >
+                        Obtener mi ubicación
+                    </button>
+
+                    <p
+                        id="estado-ubicacion"
+                        class="estado"
+                        aria-live="polite"
+                    >
+                        Ubicación no solicitada.
+                    </p>
+
+                </div>
+
+                <p
+                    id="mensaje-general"
+                    class="mensaje-general"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+                <button
+                    type="submit"
+                    id="btn-registrar"
+                    class="boton-principal"
+                >
+                    Registrar reporte
+                </button>
+
+            </form>
+
+        </section>
+
     </main>
 
     <script src="app.js"></script>
+
 </body>
+
 </html>
