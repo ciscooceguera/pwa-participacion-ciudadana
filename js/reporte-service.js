@@ -175,11 +175,6 @@
             reporte
         );
 
-        console.log(
-            "Reporte creado y almacenado por el Gestor de Reportes:",
-            reporte
-        );
-
         return {
             exito: true,
             folio: reporte.folio,

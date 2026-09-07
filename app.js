@@ -127,9 +127,14 @@ const PUNTOS_POR_REPORTE = 10;
  * Los reportes locales permanecen disponibles en ambos estados.
  */
 
-function actualizarEstadoConexion() {
+function actualizarEstadoConexion(evento) {
 
-    const sinConexion = !navigator.onLine;
+    const sinConexion =
+        evento && evento.type === "offline"
+            ? true
+            : evento && evento.type === "online"
+                ? false
+                : !navigator.onLine;
 
     estadoConexion.textContent = sinConexion
         ? "Modo sin conexión"
@@ -685,6 +690,15 @@ formulario.addEventListener(
                 "error"
             );
 
+            const primerCampoInvalido =
+                formulario.querySelector(
+                    "[aria-invalid=\"true\"]"
+                );
+
+            if (primerCampoInvalido) {
+                primerCampoInvalido.focus();
+            }
+
             return;
         }
 
@@ -692,6 +706,10 @@ formulario.addEventListener(
         envioEnProceso = true;
 
         btnRegistrar.disabled = true;
+        btnRegistrar.setAttribute(
+            "aria-busy",
+            "true"
+        );
 
         btnRegistrar.textContent =
             "Registrando...";
@@ -795,6 +813,9 @@ formulario.addEventListener(
             envioEnProceso = false;
 
             btnRegistrar.disabled = false;
+            btnRegistrar.removeAttribute(
+                "aria-busy"
+            );
 
             btnRegistrar.textContent =
                 "Registrar reporte";
@@ -882,6 +903,10 @@ formularioConsulta.addEventListener(
 
         consultaEnProceso = true;
         btnConsultar.disabled = true;
+        btnConsultar.setAttribute(
+            "aria-busy",
+            "true"
+        );
         btnConsultar.textContent = "Consultando...";
 
         try {
@@ -924,6 +949,9 @@ formularioConsulta.addEventListener(
         finally {
             consultaEnProceso = false;
             btnConsultar.disabled = false;
+            btnConsultar.removeAttribute(
+                "aria-busy"
+            );
             btnConsultar.textContent =
                 "Consultar reporte";
         }

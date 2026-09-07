@@ -1,4 +1,4 @@
-const CACHE_APP = "participacion-ciudadana-v1";
+const CACHE_APP = "participacion-ciudadana-v3";
 
 const RECURSOS_APP = [
     "./",
@@ -52,17 +52,21 @@ self.addEventListener("fetch", (evento) => {
 
     evento.respondWith(
         fetch(solicitud)
-            .then((respuesta) => {
+            .then(async (respuesta) => {
                 if (
                     respuesta.ok &&
                     URL_RECURSOS_APP.has(url.href)
                 ) {
                     const copia = respuesta.clone();
 
-                    caches.open(CACHE_APP)
-                        .then((cache) => {
-                            cache.put(solicitud, copia);
-                        });
+                    const cache = await caches.open(
+                        CACHE_APP
+                    );
+
+                    await cache.put(
+                        solicitud,
+                        copia
+                    );
                 }
 
                 return respuesta;
