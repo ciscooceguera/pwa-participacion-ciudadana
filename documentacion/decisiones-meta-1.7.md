@@ -19,3 +19,14 @@ umbrales. Para completar el componente básico del MVP se adoptaron estas reglas
 Los puntos y las insignias se calculan a partir del número de reportes presentes
 en IndexedDB. No se crean perfiles, cuentas, rankings ni información pública.
 Eliminar los datos locales del navegador también reinicia este avance.
+
+## Evidencia fotográfica
+
+La evaluación anterior recomendó ampliar la validación de archivos. Como decisión
+del MVP se fijó un máximo de 5 MB y se permiten únicamente extensiones JPG/JPEG,
+PNG y WebP con sus tipos MIME correspondientes.
+
+La aplicación también rechaza archivos vacíos. Estas comprobaciones utilizan los
+metadatos entregados por el navegador y mejoran la retroalimentación, pero no
+garantizan que el contenido del archivo sea seguro o auténtico. En una solución
+con backend sería necesaria una validación adicional en el servidor.

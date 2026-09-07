@@ -7,6 +7,74 @@
 (function () {
     "use strict";
 
+    const TAMANO_MAXIMO_EVIDENCIA =
+        5 * 1024 * 1024;
+
+    const TIPOS_EVIDENCIA_PERMITIDOS = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    const EXTENSIONES_EVIDENCIA_PERMITIDAS = [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp"
+    ];
+
+    /*
+     * Valida metadatos básicos de la evidencia.
+     * Esta revisión local no certifica el contenido real del archivo.
+     */
+    function validarEvidencia(archivo) {
+        if (!(archivo instanceof File)) {
+            return {
+                valida: false,
+                mensaje: "Debes seleccionar una evidencia fotográfica."
+            };
+        }
+
+        const nombre = archivo.name.toLowerCase();
+
+        const extensionPermitida =
+            EXTENSIONES_EVIDENCIA_PERMITIDAS.some(
+                (extension) => nombre.endsWith(extension)
+            );
+
+        const tipoPermitido =
+            TIPOS_EVIDENCIA_PERMITIDOS.includes(
+                archivo.type.toLowerCase()
+            );
+
+        if (!extensionPermitida || !tipoPermitido) {
+            return {
+                valida: false,
+                mensaje:
+                    "Selecciona una imagen JPG, PNG o WebP válida."
+            };
+        }
+
+        if (archivo.size === 0) {
+            return {
+                valida: false,
+                mensaje: "La evidencia seleccionada está vacía."
+            };
+        }
+
+        if (archivo.size > TAMANO_MAXIMO_EVIDENCIA) {
+            return {
+                valida: false,
+                mensaje: "La evidencia no debe superar los 5 MB."
+            };
+        }
+
+        return {
+            valida: true,
+            mensaje: ""
+        };
+    }
+
     /*
      * Genera un identificador aleatorio corto.
      */
@@ -67,7 +135,7 @@
             return false;
         }
 
-        if (!(datos.evidencia instanceof File)) {
+        if (!validarEvidencia(datos.evidencia).valida) {
             return false;
         }
 
@@ -123,6 +191,7 @@
      * API pública del módulo.
      */
     window.GestorReportes = {
-        registrarReporte
+        registrarReporte,
+        validarEvidencia
     };
 })();

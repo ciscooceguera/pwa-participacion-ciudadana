@@ -67,6 +67,7 @@
                         name="categoria"
                         placeholder="Ejemplo: Bache en vía pública"
                         aria-describedby="error-categoria"
+                        required
                     >
 
                     <p
@@ -89,6 +90,7 @@
                         rows="5"
                         placeholder="Describe el problema urbano"
                         aria-describedby="contador-descripcion error-descripcion"
+                        required
                     ></textarea>
 
                     <p
@@ -116,9 +118,17 @@
                         type="file"
                         id="evidencia"
                         name="evidencia"
-                        accept="image/*"
-                        aria-describedby="estado-evidencia error-evidencia"
+                        accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                        aria-describedby="ayuda-evidencia estado-evidencia error-evidencia"
+                        required
                     >
+
+                    <p
+                        id="ayuda-evidencia"
+                        class="texto-secundario"
+                    >
+                        Formatos JPG, PNG o WebP. Tamaño máximo: 5 MB.
+                    </p>
 
                     <p
                         id="estado-evidencia"
@@ -293,6 +303,7 @@
                         autocapitalize="characters"
                         spellcheck="false"
                         aria-describedby="ayuda-folio error-folio"
+                        required
                     >
 
                     <p

@@ -394,15 +394,23 @@ function validarFormulario() {
 
         formularioValido = false;
     }
-    else if (!archivo.type.startsWith("image/")) {
+    else {
 
-        mostrarError(
-            evidenciaInput,
-            errorEvidencia,
-            "El archivo seleccionado debe ser una imagen."
-        );
+        const validacionEvidencia =
+            GestorReportes.validarEvidencia(
+                archivo
+            );
 
-        formularioValido = false;
+        if (!validacionEvidencia.valida) {
+
+            mostrarError(
+                evidenciaInput,
+                errorEvidencia,
+                validacionEvidencia.mensaje
+            );
+
+            formularioValido = false;
+        }
     }
 
 
@@ -569,15 +577,22 @@ evidenciaInput.addEventListener(
             archivo.name;
 
 
-        if (
-            !archivo.type.startsWith("image/")
-        ) {
+        const validacionEvidencia =
+            GestorReportes.validarEvidencia(
+                archivo
+            );
+
+        if (!validacionEvidencia.valida) {
 
             mostrarError(
                 evidenciaInput,
                 errorEvidencia,
-                "El archivo seleccionado debe ser una imagen."
+                validacionEvidencia.mensaje
             );
+
+            estadoEvidencia.textContent =
+                "Archivo rechazado: " +
+                archivo.name;
 
             return;
         }
