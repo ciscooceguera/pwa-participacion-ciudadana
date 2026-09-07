@@ -272,16 +272,6 @@ function solicitarUbicacion() {
 
 
 /*
- * Representa temporalmente al futuro
- * Gestor de Reportes.
- *
- * No almacena información y no implementa
- * IndexedDB ni un backend.
- */
-
-
-
-/*
  * Actualiza el contador de caracteres
  * y elimina el error cuando el usuario
  * corrige la descripción.
