@@ -68,6 +68,12 @@ body {
     align-items: start;
 }
 
+.columna-lateral {
+    display: grid;
+
+    gap: 24px;
+}
+
 
 /*
  * Tarjeta del formulario
@@ -296,6 +302,131 @@ button:disabled {
     cursor: not-allowed;
 
     opacity: 0.6;
+}
+
+
+/*
+ * Participación local
+ */
+
+.encabezado-compacto {
+    margin-bottom: 18px;
+}
+
+.resumen-participacion {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.resumen-participacion p {
+    margin: 0;
+    padding: 15px;
+
+    background-color: #edf5fb;
+
+    border: 1px solid #d3e5f3;
+    border-radius: 10px;
+}
+
+.resumen-participacion strong,
+.resumen-participacion span {
+    display: block;
+}
+
+.resumen-participacion strong {
+    color: #123b63;
+
+    font-size: 26px;
+}
+
+.resumen-participacion span {
+    margin-top: 2px;
+
+    color: #526272;
+
+    font-size: 13px;
+}
+
+.titulo-insignias {
+    margin: 22px 0 12px;
+
+    color: #263747;
+
+    font-size: 16px;
+}
+
+.lista-insignias {
+    display: grid;
+
+    margin: 0;
+    padding: 0;
+
+    gap: 10px;
+
+    list-style: none;
+}
+
+.insignia {
+    display: flex;
+
+    padding: 10px;
+
+    align-items: center;
+    gap: 10px;
+
+    background-color: #f5f7f9;
+
+    border: 1px solid #dce5ee;
+    border-radius: 10px;
+
+    color: #5f6e7c;
+}
+
+.marca-insignia {
+    display: grid;
+
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+    place-items: center;
+
+    background-color: #dfe6ec;
+
+    border-radius: 50%;
+
+    color: #526272;
+
+    font-weight: bold;
+}
+
+.insignia strong,
+.insignia small {
+    display: block;
+}
+
+.insignia small {
+    margin-top: 2px;
+}
+
+.insignia.obtenida {
+    background-color: #edf8f2;
+
+    border-color: #a7d5ba;
+
+    color: #174c30;
+}
+
+.insignia.obtenida .marca-insignia {
+    background-color: #17623a;
+
+    color: #ffffff;
+}
+
+.proxima-insignia {
+    margin-bottom: 0;
 }
 
 

@@ -83,6 +83,41 @@ const contenedorEvidenciaConsulta =
 const resultadoEvidencia =
     document.getElementById("resultado-evidencia");
 
+const totalPuntos =
+    document.getElementById("total-puntos");
+
+const totalReportes =
+    document.getElementById("total-reportes");
+
+const proximaInsignia =
+    document.getElementById("proxima-insignia");
+
+const insignias = [
+    {
+        nombre: "Primer Reporte",
+        reportesNecesarios: 1,
+        elemento: document.getElementById(
+            "insignia-primer-reporte"
+        )
+    },
+    {
+        nombre: "Observador Activo",
+        reportesNecesarios: 3,
+        elemento: document.getElementById(
+            "insignia-observador-activo"
+        )
+    },
+    {
+        nombre: "Vecino Ejemplar",
+        reportesNecesarios: 5,
+        elemento: document.getElementById(
+            "insignia-vecino-ejemplar"
+        )
+    }
+];
+
+const PUNTOS_POR_REPORTE = 10;
+
 
 /*
  * Estado temporal de la interfaz.
@@ -149,6 +184,78 @@ function mostrarResultadoConsulta(reporte) {
     }
 
     resultadoConsulta.hidden = false;
+}
+
+
+/*
+ * Calcula la participación a partir de los
+ * reportes almacenados en este dispositivo.
+ */
+
+async function actualizarParticipacion() {
+
+    try {
+        const reportes =
+            await BaseDatosReportes.obtenerTodosLosReportes();
+
+        const cantidad = reportes.length;
+
+        totalReportes.textContent = String(cantidad);
+        totalPuntos.textContent = String(
+            cantidad * PUNTOS_POR_REPORTE
+        );
+
+        insignias.forEach((insignia) => {
+            const obtenida =
+                cantidad >= insignia.reportesNecesarios;
+
+            insignia.elemento.classList.toggle(
+                "obtenida",
+                obtenida
+            );
+
+            insignia.elemento.setAttribute(
+                "aria-label",
+                insignia.nombre +
+                (obtenida
+                    ? ": obtenida."
+                    : ": pendiente.")
+            );
+        });
+
+        const siguiente = insignias.find(
+            (insignia) =>
+                cantidad < insignia.reportesNecesarios
+        );
+
+        if (!siguiente) {
+            proximaInsignia.textContent =
+                "Has obtenido todas las insignias del MVP.";
+
+            return;
+        }
+
+        const faltantes =
+            siguiente.reportesNecesarios - cantidad;
+
+        proximaInsignia.textContent =
+            "Faltan " +
+            faltantes +
+            (faltantes === 1
+                ? " reporte para obtener "
+                : " reportes para obtener ") +
+            siguiente.nombre +
+            ".";
+    }
+    catch (error) {
+        console.error(
+            "Error al actualizar la participación:",
+            error
+        );
+
+        proximaInsignia.textContent =
+            "No fue posible calcular la participación local.";
+    }
 }
 
 
@@ -607,6 +714,8 @@ formulario.addEventListener(
                 errorFolio
             );
 
+            actualizarParticipacion();
+
 
             /*
              * Reinicia el formulario y sus estados.
@@ -790,3 +899,6 @@ window.addEventListener(
     "beforeunload",
     limpiarResultadoConsulta
 );
+
+
+actualizarParticipacion();
