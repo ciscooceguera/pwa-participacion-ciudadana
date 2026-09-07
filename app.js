@@ -279,34 +279,6 @@ function solicitarUbicacion() {
  * IndexedDB ni un backend.
  */
 
-function registrarReporteSimulado(datos) {
-
-    console.log(
-        "Datos enviados al Gestor de Reportes simulado:",
-        datos
-    );
-
-
-    return new Promise(function (resolve) {
-
-        setTimeout(function () {
-
-            resolve({
-
-                exito: true,
-
-                /*
-                 * Folio demostrativo devuelto por
-                 * el gestor simulado.
-                 */
-
-                folio: "DEMO-HT001"
-            });
-
-        }, 600);
-
-    });
-}
 
 
 /*
@@ -515,10 +487,7 @@ formulario.addEventListener(
 
         try {
 
-            const resultado =
-                await registrarReporteSimulado(
-                    datosReporte
-                );
+            const resultado = await GestorReportes.registrarReporte(datosReporte);
 
 
             if (!resultado.exito) {
