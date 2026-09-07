@@ -11,6 +11,16 @@
 
     <title>Registro de problema urbano</title>
 
+    <meta
+        name="description"
+        content="PWA anónima para registrar y consultar problemas urbanos desde el almacenamiento local del dispositivo."
+    >
+
+    <meta name="theme-color" content="#123b63">
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -30,6 +40,15 @@
             <p>
                 Registra una incidencia de manera anónima y conserva
                 el folio para consultarla desde este dispositivo.
+            </p>
+
+            <p
+                id="estado-conexion"
+                class="estado-conexion"
+                role="status"
+                aria-live="polite"
+            >
+                Comprobando conexión...
             </p>
         </header>
 

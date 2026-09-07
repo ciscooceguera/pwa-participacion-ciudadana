@@ -41,6 +41,9 @@ const estadoUbicacion =
 const mensajeGeneral =
     document.getElementById("mensaje-general");
 
+const estadoConexion =
+    document.getElementById("estado-conexion");
+
 const formularioConsulta =
     document.getElementById("consulta-form");
 
@@ -117,6 +120,26 @@ const insignias = [
 ];
 
 const PUNTOS_POR_REPORTE = 10;
+
+
+/*
+ * Informa si la aplicación tiene acceso a la red.
+ * Los reportes locales permanecen disponibles en ambos estados.
+ */
+
+function actualizarEstadoConexion() {
+
+    const sinConexion = !navigator.onLine;
+
+    estadoConexion.textContent = sinConexion
+        ? "Modo sin conexión"
+        : "Con conexión";
+
+    estadoConexion.classList.toggle(
+        "sin-conexion",
+        sinConexion
+    );
+}
 
 
 /*
@@ -917,3 +940,34 @@ window.addEventListener(
 
 
 actualizarParticipacion();
+
+actualizarEstadoConexion();
+
+window.addEventListener(
+    "online",
+    actualizarEstadoConexion
+);
+
+window.addEventListener(
+    "offline",
+    actualizarEstadoConexion
+);
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener(
+        "load",
+        async function () {
+            try {
+                await navigator.serviceWorker.register(
+                    "sw.js"
+                );
+            }
+            catch (error) {
+                console.warn(
+                    "No fue posible registrar el Service Worker:",
+                    error
+                );
+            }
+        }
+    );
+}

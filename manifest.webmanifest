@@ -1,0 +1,32 @@
+{
+    "id": "./",
+    "name": "Participación Ciudadana",
+    "short_name": "Participación",
+    "description": "Registra y consulta problemas urbanos de manera anónima desde tu dispositivo.",
+    "lang": "es-MX",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#eef3f8",
+    "theme_color": "#123b63",
+    "icons": [
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

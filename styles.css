@@ -59,6 +59,51 @@ body {
     line-height: 1.6;
 }
 
+.estado-conexion {
+    display: inline-flex;
+
+    margin-top: 16px !important;
+    padding: 7px 11px;
+
+    align-items: center;
+
+    background-color: #e7f4ec;
+
+    border: 1px solid #b8dcc7;
+    border-radius: 999px;
+
+    color: #174c30 !important;
+
+    font-size: 13px !important;
+    font-weight: bold;
+    line-height: 1.2 !important;
+}
+
+.estado-conexion::before {
+    width: 8px;
+    height: 8px;
+
+    margin-right: 7px;
+
+    background-color: #238451;
+
+    border-radius: 50%;
+
+    content: "";
+}
+
+.estado-conexion.sin-conexion {
+    background-color: #fff3dc;
+
+    border-color: #e7c57e;
+
+    color: #704a00 !important;
+}
+
+.estado-conexion.sin-conexion::before {
+    background-color: #b36b00;
+}
+
 .rejilla-principal {
     display: grid;
 
