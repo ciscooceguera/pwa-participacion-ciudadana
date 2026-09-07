@@ -28,11 +28,44 @@ body {
 
 .contenedor {
     width: 100%;
-    max-width: 760px;
+    max-width: 1120px;
 
     margin: 0 auto;
 
     padding: 40px 18px;
+}
+
+.portada {
+    max-width: 760px;
+
+    margin-bottom: 30px;
+}
+
+.portada h1 {
+    margin: 0 0 12px;
+
+    color: #123b63;
+
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.1;
+}
+
+.portada > p:last-child {
+    margin: 0;
+
+    color: #586574;
+
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.rejilla-principal {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 24px;
+
+    align-items: start;
 }
 
 
@@ -75,7 +108,7 @@ body {
     text-transform: uppercase;
 }
 
-.encabezado h1 {
+.encabezado h2 {
     margin: 0 0 10px;
 
     color: #123b63;
@@ -142,6 +175,13 @@ textarea:focus {
         rgba(23, 105, 170, 0.18);
 
     border-color: #1769aa;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid rgba(23, 105, 170, 0.28);
+    outline-offset: 2px;
 }
 
 input[aria-invalid="true"],
@@ -260,6 +300,95 @@ button:disabled {
 
 
 /*
+ * Consulta de reportes
+ */
+
+.tarjeta-consulta {
+    position: sticky;
+    top: 24px;
+}
+
+.mensaje-consulta {
+    margin-top: 16px;
+}
+
+.resultado-consulta {
+    margin-top: 18px;
+    padding-top: 22px;
+
+    border-top: 1px solid #dce5ee;
+}
+
+.resultado-consulta h3 {
+    margin: 0 0 16px;
+
+    color: #123b63;
+
+    font-size: 20px;
+}
+
+.detalle-reporte {
+    margin: 0;
+}
+
+.detalle-reporte div {
+    padding: 10px 0;
+
+    border-bottom: 1px solid #e7edf3;
+}
+
+.detalle-reporte dt {
+    margin-bottom: 4px;
+
+    color: #526272;
+
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.detalle-reporte dd {
+    margin: 0;
+
+    overflow-wrap: anywhere;
+
+    color: #263747;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.evidencia-consulta {
+    margin: 20px 0 0;
+}
+
+.evidencia-consulta img {
+    display: block;
+
+    width: 100%;
+    max-height: 360px;
+
+    border-radius: 10px;
+
+    object-fit: contain;
+
+    background-color: #eef3f8;
+}
+
+.evidencia-consulta figcaption {
+    margin-top: 8px;
+
+    color: #667585;
+
+    font-size: 13px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+
+/*
  * Diseño responsivo
  */
 
@@ -273,12 +402,32 @@ button:disabled {
         padding: 24px 18px;
     }
 
-    .encabezado h1 {
+    .portada h1 {
+        font-size: 30px;
+    }
+
+    .portada > p:last-child {
+        font-size: 16px;
+    }
+
+    .encabezado h2 {
         font-size: 24px;
     }
 
     .boton-secundario {
         width: 100%;
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .rejilla-principal {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-consulta {
+        position: static;
     }
 
 }

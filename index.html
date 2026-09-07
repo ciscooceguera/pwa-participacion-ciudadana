@@ -18,6 +18,23 @@
 
     <main class="contenedor">
 
+        <header class="portada">
+            <p class="etiqueta">
+                Participación ciudadana
+            </p>
+
+            <h1>
+                Reporta y consulta problemas urbanos
+            </h1>
+
+            <p>
+                Registra una incidencia de manera anónima y conserva
+                el folio para consultarla desde este dispositivo.
+            </p>
+        </header>
+
+        <div class="rejilla-principal">
+
         <section
             class="tarjeta"
             aria-labelledby="titulo-formulario"
@@ -25,13 +42,9 @@
 
             <header class="encabezado">
 
-                <p class="etiqueta">
-                    Participación ciudadana
-                </p>
-
-                <h1 id="titulo-formulario">
+                <h2 id="titulo-formulario">
                     Registrar un problema urbano
-                </h1>
+                </h2>
 
                 <p>
                     Describe el problema y agrega una fotografía
@@ -169,6 +182,131 @@
             </form>
 
         </section>
+
+        <section
+            class="tarjeta tarjeta-consulta"
+            aria-labelledby="titulo-consulta"
+        >
+
+            <header class="encabezado">
+                <h2 id="titulo-consulta">
+                    Consultar un reporte
+                </h2>
+
+                <p>
+                    La consulta utiliza los reportes guardados en este
+                    navegador. No sincroniza información entre dispositivos.
+                </p>
+            </header>
+
+            <form id="consulta-form" novalidate>
+                <div class="campo">
+                    <label for="folio-consulta">
+                        Folio del reporte
+                    </label>
+
+                    <input
+                        type="text"
+                        id="folio-consulta"
+                        name="folio-consulta"
+                        placeholder="Ejemplo: PC-20260906-A8F21C"
+                        autocomplete="off"
+                        autocapitalize="characters"
+                        spellcheck="false"
+                        aria-describedby="ayuda-folio error-folio"
+                    >
+
+                    <p
+                        id="ayuda-folio"
+                        class="texto-secundario"
+                    >
+                        Escribe el folio completo recibido al registrar.
+                    </p>
+
+                    <p
+                        id="error-folio"
+                        class="mensaje-error"
+                        aria-live="polite"
+                    ></p>
+                </div>
+
+                <button
+                    type="submit"
+                    id="btn-consultar"
+                    class="boton-principal"
+                >
+                    Consultar reporte
+                </button>
+            </form>
+
+            <p
+                id="mensaje-consulta"
+                class="mensaje-general mensaje-consulta"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <article
+                id="resultado-consulta"
+                class="resultado-consulta"
+                aria-labelledby="titulo-resultado"
+                hidden
+            >
+                <h3 id="titulo-resultado">
+                    Detalle del reporte
+                </h3>
+
+                <dl class="detalle-reporte">
+                    <div>
+                        <dt>Folio</dt>
+                        <dd id="resultado-folio"></dd>
+                    </div>
+
+                    <div>
+                        <dt>Categoría</dt>
+                        <dd id="resultado-categoria"></dd>
+                    </div>
+
+                    <div>
+                        <dt>Descripción</dt>
+                        <dd id="resultado-descripcion"></dd>
+                    </div>
+
+                    <div>
+                        <dt>Estado</dt>
+                        <dd id="resultado-estado"></dd>
+                    </div>
+
+                    <div>
+                        <dt>Fecha de registro</dt>
+                        <dd id="resultado-fecha"></dd>
+                    </div>
+
+                    <div>
+                        <dt>Ubicación</dt>
+                        <dd id="resultado-ubicacion"></dd>
+                    </div>
+                </dl>
+
+                <figure
+                    id="contenedor-evidencia-consulta"
+                    class="evidencia-consulta"
+                    hidden
+                >
+                    <img
+                        id="resultado-evidencia"
+                        alt="Evidencia fotográfica del reporte consultado"
+                    >
+
+                    <figcaption>
+                        Evidencia almacenada en este dispositivo.
+                    </figcaption>
+                </figure>
+            </article>
+
+        </section>
+
+        </div>
 
     </main>
     <script src="js/db.js"></script>

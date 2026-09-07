@@ -41,6 +41,48 @@ const estadoUbicacion =
 const mensajeGeneral =
     document.getElementById("mensaje-general");
 
+const formularioConsulta =
+    document.getElementById("consulta-form");
+
+const folioConsultaInput =
+    document.getElementById("folio-consulta");
+
+const btnConsultar =
+    document.getElementById("btn-consultar");
+
+const errorFolio =
+    document.getElementById("error-folio");
+
+const mensajeConsulta =
+    document.getElementById("mensaje-consulta");
+
+const resultadoConsulta =
+    document.getElementById("resultado-consulta");
+
+const resultadoFolio =
+    document.getElementById("resultado-folio");
+
+const resultadoCategoria =
+    document.getElementById("resultado-categoria");
+
+const resultadoDescripcion =
+    document.getElementById("resultado-descripcion");
+
+const resultadoEstado =
+    document.getElementById("resultado-estado");
+
+const resultadoFecha =
+    document.getElementById("resultado-fecha");
+
+const resultadoUbicacion =
+    document.getElementById("resultado-ubicacion");
+
+const contenedorEvidenciaConsulta =
+    document.getElementById("contenedor-evidencia-consulta");
+
+const resultadoEvidencia =
+    document.getElementById("resultado-evidencia");
+
 
 /*
  * Estado temporal de la interfaz.
@@ -48,6 +90,66 @@ const mensajeGeneral =
 
 let ubicacionActual = null;
 let envioEnProceso = false;
+let consultaEnProceso = false;
+let urlEvidenciaActual = null;
+
+
+/*
+ * Limpia la vista y cualquier URL temporal
+ * creada para una evidencia consultada.
+ */
+
+function limpiarResultadoConsulta() {
+
+    resultadoConsulta.hidden = true;
+    contenedorEvidenciaConsulta.hidden = true;
+
+    resultadoEvidencia.removeAttribute("src");
+
+    if (urlEvidenciaActual !== null) {
+        URL.revokeObjectURL(urlEvidenciaActual);
+        urlEvidenciaActual = null;
+    }
+}
+
+
+/*
+ * Presenta un reporte recuperado de IndexedDB.
+ */
+
+function mostrarResultadoConsulta(reporte) {
+
+    limpiarResultadoConsulta();
+
+    resultadoFolio.textContent = reporte.folio;
+    resultadoCategoria.textContent = reporte.categoria;
+    resultadoDescripcion.textContent = reporte.descripcion;
+    resultadoEstado.textContent = reporte.estado;
+
+    const fecha = new Date(reporte.fechaCreacion);
+
+    resultadoFecha.textContent = Number.isNaN(fecha.getTime())
+        ? reporte.fechaCreacion
+        : fecha.toLocaleString("es-MX", {
+            dateStyle: "long",
+            timeStyle: "short"
+        });
+
+    resultadoUbicacion.textContent = reporte.ubicacion
+        ? "Disponible en el reporte local."
+        : "No proporcionada.";
+
+    if (reporte.evidencia instanceof Blob) {
+        urlEvidenciaActual = URL.createObjectURL(
+            reporte.evidencia
+        );
+
+        resultadoEvidencia.src = urlEvidenciaActual;
+        contenedorEvidenciaConsulta.hidden = false;
+    }
+
+    resultadoConsulta.hidden = false;
+}
 
 
 /*
@@ -456,7 +558,7 @@ formulario.addEventListener(
 
         /*
          * Construye el objeto que se entrega
-         * al futuro Gestor de Reportes.
+         * al Gestor de Reportes.
          */
 
         const datosReporte = {
@@ -495,6 +597,14 @@ formulario.addEventListener(
                 "Reporte recibido correctamente. Folio: " +
                 resultado.folio,
                 "exito"
+            );
+
+            folioConsultaInput.value =
+                resultado.folio;
+
+            limpiarError(
+                folioConsultaInput,
+                errorFolio
             );
 
 
@@ -545,4 +655,138 @@ formulario.addEventListener(
 
     }
 
+);
+
+
+/*
+ * Normaliza y limpia el error del folio
+ * mientras el usuario escribe.
+ */
+
+folioConsultaInput.addEventListener(
+
+    "input",
+
+    function () {
+
+        folioConsultaInput.value =
+            folioConsultaInput.value.toUpperCase();
+
+        if (folioConsultaInput.value.trim() !== "") {
+            limpiarError(
+                folioConsultaInput,
+                errorFolio
+            );
+        }
+
+    }
+
+);
+
+
+/*
+ * Consulta un reporte local mediante su folio.
+ */
+
+formularioConsulta.addEventListener(
+
+    "submit",
+
+    async function (evento) {
+
+        evento.preventDefault();
+
+        if (consultaEnProceso) {
+            return;
+        }
+
+        const folio =
+            folioConsultaInput.value.trim().toUpperCase();
+
+        folioConsultaInput.value = folio;
+
+        limpiarError(
+            folioConsultaInput,
+            errorFolio
+        );
+
+        mensajeConsulta.textContent = "";
+        mensajeConsulta.className =
+            "mensaje-general mensaje-consulta";
+
+        if (!/^PC-\d{8}-[A-Z0-9]{6}$/.test(folio)) {
+            limpiarResultadoConsulta();
+
+            mostrarError(
+                folioConsultaInput,
+                errorFolio,
+                "Escribe un folio con el formato PC-YYYYMMDD-XXXXXX."
+            );
+
+            mensajeConsulta.textContent =
+                "Revisa el folio antes de consultar.";
+
+            mensajeConsulta.classList.add("error");
+
+            folioConsultaInput.focus();
+
+            return;
+        }
+
+        consultaEnProceso = true;
+        btnConsultar.disabled = true;
+        btnConsultar.textContent = "Consultando...";
+
+        try {
+            const reporte =
+                await BaseDatosReportes.obtenerReportePorFolio(
+                    folio
+                );
+
+            if (reporte === null) {
+                limpiarResultadoConsulta();
+
+                mensajeConsulta.textContent =
+                    "No se encontró un reporte con ese folio en este dispositivo.";
+
+                mensajeConsulta.classList.add("error");
+
+                return;
+            }
+
+            mostrarResultadoConsulta(reporte);
+
+            mensajeConsulta.textContent =
+                "Reporte encontrado en el almacenamiento local.";
+
+            mensajeConsulta.classList.add("exito");
+        }
+        catch (error) {
+            limpiarResultadoConsulta();
+
+            console.error(
+                "Error durante la consulta:",
+                error
+            );
+
+            mensajeConsulta.textContent =
+                "No fue posible consultar el reporte local.";
+
+            mensajeConsulta.classList.add("error");
+        }
+        finally {
+            consultaEnProceso = false;
+            btnConsultar.disabled = false;
+            btnConsultar.textContent =
+                "Consultar reporte";
+        }
+
+    }
+
+);
+
+
+window.addEventListener(
+    "beforeunload",
+    limpiarResultadoConsulta
 );
