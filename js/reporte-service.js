@@ -1,8 +1,7 @@
 /*
  * Gestor de Reportes
  *
- * Responsable de crear un reporte válido para el MVP.
- * La persistencia se implementará posteriormente mediante IndexedDB.
+ * Responsable de crear y persistir un reporte válido para el MVP.
  */
 
 (function () {
@@ -95,8 +94,21 @@
             fechaCreacion: new Date().toISOString()
         };
 
+        if (
+            !window.BaseDatosReportes ||
+            typeof window.BaseDatosReportes.guardarReporte !== "function"
+        ) {
+            throw new Error(
+                "El acceso a la base de datos local no está disponible."
+            );
+        }
+
+        await window.BaseDatosReportes.guardarReporte(
+            reporte
+        );
+
         console.log(
-            "Reporte creado por el Gestor de Reportes:",
+            "Reporte creado y almacenado por el Gestor de Reportes:",
             reporte
         );
 
